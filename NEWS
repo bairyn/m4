@@ -5,6 +5,8 @@ GNU M4 NEWS - User visible changes.
 ** The `syscmd' and `esyscmd' builtins no longer mishandle a command line
    starting with `-' or `+'.
 
+** Fixed macro argument expansion overflow segfault.
+
 * Noteworthy changes in release 1.4.19 (2021-05-28) [stable]
 
 ** A number of portability improvements inherited from gnulib, including

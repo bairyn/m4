@@ -1957,6 +1957,18 @@ versions of GNU M4 will phase out this feature.  To portably
 access beyond the ninth argument, you can use the @code{argn} macro
 documented later (@pxref{Shift}).
 
+@ignore
+@comment Detect macro expansion overflow segfault in 1.4.19.
+@comment Not worth including in the manual.
+@example
+define(`mac', `$2028558489387014291456')mac
+@result{}
+@example
+define(`mac', `$4294967297')mac(value)
+@result{}
+@end example
+@end ignore
+
 POSIX also states that @samp{$} followed immediately by
 @samp{@{} in a macro definition is implementation-defined.  This version
 of M4 passes the literal characters @samp{$@{} through unchanged, but M4

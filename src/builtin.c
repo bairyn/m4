@@ -24,6 +24,8 @@
 
 #include "m4.h"
 
+#include <limits.h>
+
 #include "execute.h"
 #include "memchr2.h"
 #include "progname.h"
@@ -2248,7 +2250,23 @@ expand_user_macro (struct obstack *obs, symbol *sym,
           else
             {
               for (i = 0; c_isdigit (*text); text++)
-                i = i*10 + (*text - '0');
+                {
+                  /* Check for overflow.  (a*b > c iff a > floor (c/b)) */
+                  int d = *text - '0';
+                  if (i <= (INT_MAX - d)/10)
+                    {
+                      i = i*10 + d;
+                    }
+                  else
+                    {
+                      i = argc;
+                      while (c_isdigit (*text))
+                        {
+                          text++;
+                        }
+                      break;
+                    }
+                }
             }
           if (i < argc)
             obstack_grow (obs, TOKEN_DATA_TEXT (argv[i]),
