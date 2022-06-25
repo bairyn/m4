@@ -2226,7 +2226,7 @@ expand_user_macro (struct obstack *obs, symbol *sym,
                    int argc, token_data **argv)
 {
   const char *text = SYMBOL_TEXT (sym);
-  int i;
+  unsigned int i;
   while (1)
     {
       const char *dollar = strchr (text, '$');
